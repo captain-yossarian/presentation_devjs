@@ -1,12 +1,10 @@
-// infer argument 2
-{
-  const foo = <Value, T extends { a: Value }>(a: T) => a;
-
-  // const foo: <{ a: number; }> (a: { a: number; }) => { a: number; }
-  foo({ a: 42 });
-}
-
-// infer more precisely
+/**
+ *
+ *
+ * FIRST EXAMPLE
+ *
+ *
+ */
 {
   const foo = <Value extends number, T extends { a: Value }>(a: T) => a;
 
@@ -14,7 +12,13 @@
   foo({ a: 42 });
 }
 
-// infer precisely in generic way
+/**
+ *
+ *
+ * SECOND EXAMPLE
+ *
+ *
+ */
 {
   const foo = <
     Key extends PropertyKey,
@@ -26,19 +30,4 @@
 
   // const foo: <PropertyKey, Json, { a: 42; b: "hello"; }
   foo({ a: 42, b: "hello" });
-}
-
-/**
- * Wrong!
- */
-{
-  /**
-   *
-   * Generic should always be binded with argument
-   */
-  function fn<Char extends string>(): Char {
-    return "a";
-  }
-
-  const result = fn<"a" & { extraProp: "hello" }>().extraProp; // "hello"
 }

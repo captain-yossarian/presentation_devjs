@@ -23,9 +23,11 @@ type VariantB = {
   base: Base;
 };
 
+// Equal to Result type
 type Debug =
   | (VariantA & Partial<Record<"b", never>>)
   | (VariantB & Partial<Record<"a", never>>);
+
 type Result = StrictUnion<VariantA | VariantB>;
 
 const fn = <T extends StrictUnion<VariantA | VariantB>>(arg: T) => {};
